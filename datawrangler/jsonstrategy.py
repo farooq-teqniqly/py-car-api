@@ -1,12 +1,11 @@
 import json
 from typing import Tuple, Generator
+from datawrangler.entityfactory import create_entities
 
 
 def export(class_, rows: Generator[Tuple, None, None]) -> Generator[str, None, None]:
 
-    for row in rows:
+    for entity in create_entities(class_, rows):
 
-        field_count = len(class_._fields)
-        instance = class_(*row[:field_count])
-        json_str = json.dumps(instance._asdict())
+        json_str = json.dumps(entity._asdict())
         yield json_str

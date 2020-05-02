@@ -1,6 +1,6 @@
 import datawrangler.db as db
 import datawrangler.entities
-import datawrangler.jsonexporter as je
+import datawrangler.jsonstrategy as js
 from os.path import dirname, realpath, join
 
 if __name__ == "__main__":
@@ -26,7 +26,7 @@ if __name__ == "__main__":
         with open(file_full_name, "a") as writer:
             writer.write("[")
 
-            for entity_json in je.export(class_, cursor):
+            for entity_json in js.export(class_, cursor):
                 writer.write(entity_json)
                 writer.write(",")
 
