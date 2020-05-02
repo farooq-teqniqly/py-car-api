@@ -1,4 +1,15 @@
 from typing import Generator, Tuple
+import datawrangler.entities
+
+
+def get_entity_names() -> Generator[str, None, None]:
+    generator = (
+        e
+        for e in dir(datawrangler.entities)
+        if (not e.startswith("__") and e != "namedtuple")
+    )
+
+    return generator
 
 
 def create_entities(

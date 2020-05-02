@@ -1,3 +1,5 @@
+from typing import Tuple, Generator
+
 import pyodbc
 
 
@@ -17,3 +19,9 @@ def connect(server: str, db: str, user: str, password: str):
     )
 
     return connection
+
+
+def get_entities(connection, entity: str) -> Generator[Tuple, None, None]:
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT * FROM [dbo].[{entity}]")
+    return cursor
