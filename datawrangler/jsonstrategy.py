@@ -1,7 +1,7 @@
 import json
 from typing import Tuple, Generator
 from datawrangler.entityfactory import create_entities
-from os import getenv
+from os import getenv, SEEK_END, SEEK_CUR
 from os.path import join
 
 
@@ -18,6 +18,10 @@ def export(class_, rows: Generator[Tuple, None, None]):
             writer.write(",")
 
         writer.write("]")
+
+    with open(path, "r+b") as writer:
+        writer.seek(-2, SEEK_END)
+        writer.write(b" ")
 
 
 def _serialize(entity):
